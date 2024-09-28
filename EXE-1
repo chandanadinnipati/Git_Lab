@@ -1,0 +1,152 @@
+MAIN TASK
+
+1.Create a new directory and change into it
+
+-mkdir dir1
+-cd dir1
+
+2.Use the init command to create a Git repository in that directory.
+
+-git init
+
+3.Observe that there is now a .git directory.
+
+-ls -a
+
+4.Create a README file.
+
+-touch README.
+
+5.Look at the output of the status command; the README you created should appear as an 
+untracked file.
+
+-git status
+
+6. Use the add command to add the new file to the staging area. Again, look at the output of 
+the status command.
+
+-git add README.txt
+-git status
+
+7. Now use the commit command to commit the contents of the staging area.
+
+-git commit -m "Initial commit"
+
+8. Create a src directory and add a couple of files to it.
+
+-mkdir src
+-cd src
+-touch file1.txt file2.txt file3.txt
+
+9. Use the add command, but name the directory, not the individual files. Use the status
+command. See how both files have been staged. Commit them.
+
+-git add src
+-git status
+
+10. Make a change to one of the files. Use the diff command to view the details of the change.
+
+-echo "Welcome All" | cat > README.txt
+-git diff -u
+
+11. Next, add the changed file, and notice how it moves to the staging area in the status
+output. Also observe that the diff command you did before using add now gives no output. 
+Why not? What do you have to do to see a diff of the things in the staging area? (Hint: 
+review the slides if you can’t remember.)
+
+-git add README.txt
+-git diff              #no output
+-git diff -staged      #This command will show you the differences between the staged files and the last committed version
+
+12. Now – without committing – make another change to the same file you changed in step 10. 
+Look at the status output, and the diff output. Notice how you can have both staged and 
+unstaged changes, even when you’re talking about a single file. Observe the difference when 
+you use the add command to stage the latest round of changes. Finally, commit them. You 
+should now have started to get a feel for the staging area.
+
+-echo "This is the README file" | cat > README.txt
+-git status
+-git diff --staged
+-git add README.txt
+-git commit -m "modified README text file"
+-git status
+
+13. Use the log command in order to see all of the commits you made so far.
+
+-git log --pretty=full
+
+14. Use the show command to look at an individual commit. How many characters of the 
+commit identifier can you get away with typing at a minimum?
+
+-git show 28d0c  #minimum of 4-6 characters are enough to identify the commit
+                 #we get commit hash value from "git log" commad.
+
+15. Make a couple more commits, at least one of which should add an extra file
+
+-touch file1.txt text1.txt
+-echo "hi" |cat file1.txt
+-git status
+-git add file1.txt text1.txt
+-git commit -m "added some files"
+
+-----------------------------------------------------------------------------
+Streched task
+
+1.Use the Git rm command to remove a file. Look at the status afterwards. Now commit the 
+deletion.
+
+-git rm file1.txt
+-git status
+-git commit -m "deletd file.txt"
+
+2. Delete another file, but this time do not use Git to do it; e.g. if you are on Linux, just use the 
+normal (non-Git) rm command; on Windows use del.
+
+-rm text1.txt
+-git status
+-git add text1.txt
+
+3. Look at the status. Compare it to the status output you had after using the Git built-in rm
+command. Is anything different? After this, commit the deletion.
+
+-git status    # by removing the file witout using git built -in rm it will deleted in working directory only
+                if we add the deleted filr ti staging area it will delete the file there also
+
+4. Use the Git mv command to move or rename a file; for example, rename README to 
+README.txt. Look at the status. Commit the change.
+
+-git mv README.txt readme.txt
+-git status
+-git commit -m "rename the file"
+
+5. Now do another rename, but this time using the operating system’s command to do so. How 
+does the status look? Will you get the right outcome if you were to commit at this point?
+(Answer: almost certainly not, so don’t. ) Work out how to get the status to show that it 
+will not lose the file, and then commit. Did Git at any point work out that you had done a 
+rename?
+
+-mv readme.txt README.txt
+-git status
+-git add README.txt
+-git status
+-git commit -m "change filename"
+
+6. Use git help log to find out how to get Git to display just the most recent 3 commits. Try 
+it.
+
+-git help log
+-git log -3           #this will give last 3 commits that we made
+
+7. If you don’t remember, look back in the slides to see what the --stat option did on the 
+diff command. Find out if this also works with the show command. How about the log
+command?
+
+-git show -stat           #it will status of a commit by defalut it show last commited one 
+                           if we want to see specified commit details we use commit hash key
+
+
+8. Imagine you want to see a diff that summarizes all that happened between two commit 
+identifiers. Use the diff command, specifying two commit identifiers joined by two dots 
+(that is, something like abc123..def456). Check the output is what you expect.
+
+-git diff 296ba4..119a3e    #it will display the changes made between the commit identified that are specified 
