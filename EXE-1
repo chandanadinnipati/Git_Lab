@@ -15,7 +15,7 @@ MAIN TASK
 
 4.Create a README file.
 
--touch README.
+-touch README.txt
 
 5.Look at the output of the status command; the README you created should appear as an 
 untracked file.
