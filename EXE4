@@ -1,0 +1,91 @@
+MAIN TASK
+-----------------------------
+1. Make a commit, and make a silly typo in the commit message.
+
+-git add file1.txt
+-git commit -m "commmit with typo"
+
+2. Use the --amend flag to enable you to fix the commit message.
+
+-git commit --amend -m "commit message has changed"
+
+3. Look at the log and notice how the mistake is magically gone.
+
+-git log
+
+4. Now make a commit where you make a typo in one of the files. Once again, use --amend to 
+magic away your problems.
+
+-git add file2.txt
+-git commit -m "added file but"
+-git log
+-git commit --amend -m "added file2.txt"
+
+5. Create a branch. Make a commit.
+
+-git checkout -b branch1
+-git add file3.txt
+-git commit -m "branch1 commit"
+
+6. Now switch back to your master branch. Make a (non-conflicting) commit there also.
+
+-git checkout master
+-git add file3.txt
+-git commit -m "commit in master"
+
+7. Now switch back to your branch.
+
+-git checkout branch1
+-git merge master
+
+8. Use the rebase command in your branch. Look at the DAG in gitk, and note that you have 
+the commit from the master branch, but no merge commit.
+
+-git rebase master
+-git log
+-gitk
+
+9. Make one more commit in your branch.
+
+-git rm file1.txt
+-git commit -m "remove file1"
+
+10. Return to master. Merge your branch. Notice how, thanks to the rebase, this is a fastforward merge.
+Stretch Task
+
+-git checkout master
+-git merge branch1
+
+strech task
+-------------------------------
+1. Find somebody from your team from the previous exercise. Have them push a commit to 
+the central repository.
+
+-create collabaration for repo with other
+-git add file1.txt
+-git commit -m "commit from other"
+-git push -u origin master
+
+2. Make a commit locally yourself also. Note that you should not have pulled their commit at 
+this point.
+
+-git add file2.txt
+-git commit -m "commit myfile"
+
+3. Try to push, and watch it fail.
+
+-git push -u origin master
+
+4. Now, pull but using the --rebase flag.
+
+-git pull --rebase origin master  #This will rebase your local commits onto the remote branch, resolving the conflict and creating a linear history.
+
+5. Use git log and gitk to verify that there is no merge commit, and the DAG is linear.
+
+-git log
+-gitk
+
+6. Notice that your commit is the latest one, even though temporally the other member of 
+your team made their commit afterwards. Why is this?
+
+Because I used rebase tool which restructures commit history. It can help you create a cleaner and more linear history, especially when working with remote branches.
