@@ -40,6 +40,9 @@ contents.
 7. Use the checkout command to switch back to your branch. Use gitk to take a look at the 
 commit graph; notice it’s linear.
 
+-git checkout branch1
+-gitk
+
 8. Now checkout the master branch again. Use the merge command to merge your branch in 
 to it. Look for information about it having been a fast-forward merge. Look at git log, and 
 see that there is no merge commit. Take a look in gitk and see how the DAG is linear.
