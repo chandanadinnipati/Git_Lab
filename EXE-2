@@ -46,33 +46,118 @@ commit graph; notice it’s linear.
 8. Now checkout the master branch again. Use the merge command to merge your branch in 
 to it. Look for information about it having been a fast-forward merge. Look at git log, and 
 see that there is no merge commit. Take a look in gitk and see how the DAG is linear.
+
+-git checkout master
+-git status
+-git merge branch1
+-git log
+-gitk
+
 9. Switch back to your branch. Make a couple more commits.
+
+-git checkout branch1
+-echo "hello">file2.txt
+-git add file2.txt
+-git commit -m "file2 is added"
+-git rm file1.txt
+-git commit "removed file1"
+
 10. Switch back to master. Make a commit there, which should edit a different file from the 
 ones you touched in your branch – to be sure there is no conflict.
+
+-git checkout master
+-touch text1.txt
+-echo "hello">text1.txt
+-git add text1.txt
+-git commit -m "file added"
+
 11. Now merge your branch again. (Aside: you don’t need to do anything to inform Git that you 
 only want to merge things added since your previous merge. Due to the way Git works, that 
 kind of issue simply does not come up, unlike in early versions of Subversion.)
+
+-git merge branch1
+
 12. Look at git log. Notice that there is a merge commit. Also look in gitk. Notice the DAG 
 now shows how things forked, and then were joined up again by a merge commit.
+
+-git log
+-gitk
+
 Stretch Task
+--------------------------
 1. Once again, checkout your branch. Make a couple of commits.
+
+-git checkout branch1
+-echo "hii">file1.txt
+-git add file1.txt
+-git commit -m "modied"
+
 2. Return to your master branch. Make a commit there that changes the exact same line, or 
 lines, as commits in your branch did.
+
+-git checkout master
+-echo "hello">file1.txt
+-git add file1.txt
+-git commit -m "modied main"
+
 3. Now try to merge your branch. You should get a conflict.
+
+-git merge branch1   #gets conflit for differnce in file content
+
 4. Open the file(s) that is in conflict. Search for the conflict marker. Edit the file to remove the 
 conflict markers and resolve the conflict.
+
+-delete the lines from one of the branches or combine the changes using editers manually
+
 5. Now try to commit. Notice that Git will not allow you to do this when you still have 
 potentially unresolved conflicts. Look at the output of status too.
+
+-git commit -m "merge"
+
 6. Use the add command to add the files that you have resolved conflicts in to the staging 
 area. Then use commit to commit the merge commit.
+
+-git add file3.txt
+-git commit -m "mergei file"
+
 7. Take a look at git log and gitk, and make sure things are as you expected.
+
+-git log
+-git look
+
 8. If time allows, you may wish to...
- Delete everything but your .git directory, then do a checkout command, to prove 
+-> Delete everything but your .git directory, then do a checkout command, to prove 
 to yourself that this really will restore all of you current working copy.
- Create a situation where one branch has changed a file, but the other branch has 
+
+-git rm -r src  #remove etire directory
+-git rm file1.txt file2.txt text1.txt
+-ls -a           # no files will exixt except . ,.. ,.git files
+-git checkout master
+-ls -a     #we get all files
+
+-> Create a situation where one branch has changed a file, but the other branch has 
 deleted it. What happens when you try to merge? How will you resolve it?
- Look at the help page for merge, and find out how you specify a custom message for 
+
+-git chekout brancn1
+-echo "hello">file1.txt
+-git add file1.txt
+-git commit -m "modified"
+-git checkout master
+-git rm file1.txt
+-git commit -m "deleted"
+-git merge branch1          
+
+-> Look at the help page for merge, and find out how you specify a custom message for 
 the merge commit if it is automatically generated.
- Look at the help page for merge, and find out how to prevent Git from automatically 
+
+-git help merge
+-git merge branch1
+-git commit -m "merge automatic commit"  
+
+-> Look at the help page for merge, and find out how to prevent Git from automatically 
 committing the merge commit it generates, but instead give you chance to inspect it 
 and merge it yourself.
+
+-git elp merge
+-git merge --no-commit branch1
+-git commit -m "commit after inspect"
