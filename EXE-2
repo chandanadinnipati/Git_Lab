@@ -158,6 +158,6 @@ the merge commit if it is automatically generated.
 committing the merge commit it generates, but instead give you chance to inspect it 
 and merge it yourself.
 
--git elp merge
+-git help merge
 -git merge --no-commit branch1
 -git commit -m "commit after inspect"
