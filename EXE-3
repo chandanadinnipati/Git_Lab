@@ -56,10 +56,11 @@ wish to view the DAG in gitk.
 -git log
 -gitk
 
-9. Repeat the last two steps a couple of times, to practice.
 Stretch Task
+-------------------------------------
 1. Now create a situation where two group members both edit the same line in the same file 
 and commit it locally. Race to push.
+
 -git checkout -b branch1 
 -echo "hello from f1">file1.txt 
 -git add file1.txt
